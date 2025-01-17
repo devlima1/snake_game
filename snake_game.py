@@ -39,6 +39,10 @@ apple_surface = pygame.Surface((PIXEL_SIZE, PIXEL_SIZE)) # Superfície da maçã
 apple_surface.fill((255, 0, 0)) # Cor da maçã (vermelha)
 apple_pos = random_on_grid() # Gera a posição inicial da maçã
 
+# Inicializa a fonte para o texto score e o seu valor
+font = pygame.font.Font(None, 30)
+score = 0
+
 # Condição para manter a janela aberta
 running = True
 while running:
@@ -60,6 +64,7 @@ while running:
     if collision(apple_pos, snake_pos[0]):
         snake_pos.append((-10, -10)) # A cobra cresce
         apple_pos = random_on_grid() # A maçã muda de posição
+        score = score + 1
 
     # Desenha a cobra na tela
     for pos in snake_pos:
@@ -84,6 +89,10 @@ while running:
         snake_pos[0] = (snake_pos[0][0] - PIXEL_SIZE, snake_pos[0][1])
     elif snake_direction == K_RIGHT:
         snake_pos[0] = (snake_pos[0][0] + PIXEL_SIZE, snake_pos[0][1])
+
+    # Desenha o score na tela
+    text_score = font.render(f"Score: {score}", True, (255, 255, 255))
+    screen.blit(text_score, (10, 10))
 
     # Atualiza a tela
     pygame.display.update()
