@@ -2,6 +2,13 @@ import pygame
 from pygame.locals import *
 import random
 
+# Música
+pygame.mixer.init() # Inicializa o mixer do Pygame para trabalhar com áudio
+background_music = pygame.mixer.music.load('music/Snake III JAVA game theme song.mp3') # Carregar a música de fundo
+pygame.mixer.music.play(-1) # Reproduz a música de fundo em um loop infinito
+pygame.mixer.music.set_volume(0.3) # Define o volume da música de fundo para 30%
+eating_soung = pygame.mixer.Sound('music/Snake Eats Apple ｜ Game Play.mp3') # Carrega o som para o evento de comer a maçã
+
 # Tamanho do pixel e tamanho da janela
 PIXEL_SIZE = 10
 WINDOW_SIZE = (600, 600)
@@ -64,7 +71,8 @@ while running:
     if collision(apple_pos, snake_pos[0]):
         snake_pos.append((-10, -10)) # A cobra cresce
         apple_pos = random_on_grid() # A maçã muda de posição
-        score = score + 1
+        eating_soung.play() # Reproduz o som de comer a maçã
+        score = score + 1 # Incrementa o score
 
     # Desenha a cobra na tela
     for pos in snake_pos:
